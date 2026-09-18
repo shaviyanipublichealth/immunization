@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>0.5ml Syringe Stock Status</title>
+  <style>
+    :root {
+      --primary-color: #0056b3;
+      --primary-hover: #004085;
+      --success-color: #28a745;
+      --success-hover: #218838;
+      --danger-color: #dc3545;
+      --danger-hover: #c82333;
+      --bg-color: #f4f6f9;
+      --card-bg: #ffffff;
+      --border-color: #ccc;
+      --text-color: #333;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      margin: 0;
+      padding: 20px;
+      color: var(--text-color);
+    }
+
+    .container {
+      max-width: 600px;
+      background: var(--card-bg);
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+
+    select, input[type="text"], input[type="date"], input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .batch-group {
+      background: #f9fbfd;
+      border: 1px solid #e1e8ed;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .batch-group h4 {
+      margin: 0 0 10px 0;
+      color: #444;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn-add {
+      background-color: var(--success-color);
+      color: white;
+      width: 100%;
+      margin-top: 5px;
+    }
+
+    .btn-add:hover {
+      background-color: var(--success-hover);
+    }
+
+    .btn-submit {
+      background-color: var(--primary-color);
+      color: white;
+      width: 100%;
+      margin-top: 20px;
+      font-size: 16px;
+    }
+
+    .btn-submit:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .remove-btn {
+      background: var(--danger-color);
+      color: white;
+      padding: 4px 8px;
+      font-size: 12px;
+    }
+
+    .remove-btn:hover {
+      background: var(--danger-hover);
+    }
+
+    #loading, #success-message, #error-message {
+      display: none;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 4px;
+    }
+
+    #loading { color: var(--primary-color); background: #eef5ff; }
+    #success-message { color: var(--success-color); background: #eaf8ec; }
+    #error-message { color: var(--danger-color); background: #fdf2f2; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>0.5ml Syringe Stock Status</h2>
+  <div class="subtitle">Shaviyani Atoll Health Facilities Inventory Tracking</div>
+
+  <form id="stockForm" onsubmit="handleFormSubmit(event)">
+    
+    <label for="staffName">Staff Name:</label>
+    <input type="text" name="staffName" id="staffName" required placeholder="Enter your full name">
+
+    <label for="reportDate">Report Date:</label>
+    <input type="date" name="reportDate" id="reportDate" required>
+
+    <label for="hcf">Health Care Facility (HCF):</label>
+    <select name="hcf" id="hcf" required>
+      <option value="">-- Select Health Centre --</option>
+      <option value="Sh. Kanditheemu HC">Sh. Kanditheemu HC</option>
+      <option value="Sh. Noomaraa HC">Sh. Noomaraa HC</option>
+      <option value="Sh. Goidhoo HC">Sh. Goidhoo HC</option>
+      <option value="Sh. Feydhoo HC">Sh. Feydhoo HC</option>
+      <option value="Sh. Feevah HC">Sh. Feevah HC</option>
+      <option value="Sh. Bilehfahi HC">Sh. Bilehfahi HC</option>
+      <option value="Sh. Foakaidhoo HC">Sh. Foakaidhoo HC</option>
+      <option value="Sh. Narudhoo HC">Sh. Narudhoo HC</option>
+      <option value="Sh. Maroshi HC">Sh. Maroshi HC</option>
+      <option value="Sh. Lhaimagu HC">Sh. Lhaimagu HC</option>
+      <option value="Sh. Komandoo HC">Sh. Komandoo HC</option>
+      <option value="Sh. Maaungoodhoo HC">Sh. Maaungoodhoo HC</option>
+      <option value="Sh. Milandhoo HC">Sh. Milandhoo HC</option>
+    </select>
+
+    <div id="batchContainer">
+      <div class="batch-group" id="batch-1">
+        <h4>Batch 1</h4>
+        <label>Manufacturer Batch Number:</label>
+        <input type="text" name="batchNumber[]" required placeholder="Enter batch number">
+        
+        <label>Expiry Date:</label>
+        <input type="date" name="expiryDate[]" required>
+        
+        <label>Amount on Hand:</label>
+        <input type="number" name="amountOnHand[]" min="0" required placeholder="Enter quantity">
+      </div>
+    </div>
+
+    <button type="button" class="btn-add" onclick="addBatchField()">+ Add Another Batch</button>
+    <button type="submit" class="btn-submit" id="submitBtn">Submit Stock Status</button>
+    
+    <div id="loading">Submitting stock status data, please wait...</div>
+    <div id="success-message">Stock status successfully submitted!</div>
+    <div id="error-message">Submission failed. Please try again.</div>
+  </form>
+</div>
+
+<script>
+  let batchCount = 1;
+  // REPLACE THIS with your deployed Google Apps Script Web App URL
+  const SCRIPT_URL = "YOUR_APPS_SCRIPT_WEB_APP_URL";
+
+  // Auto-fill today's date on load
+  document.getElementById('reportDate').valueAsDate = new Date();
+
+  function addBatchField() {
+    batchCount++;
+    const container = document.getElementById('batchContainer');
+    const div = document.createElement('div');
+    div.classList.add('batch-group');
+    div.id = `batch-${batchCount}`;
+    div.innerHTML = `
+      <h4>
+        Batch ${batchCount} 
+        <button type="button" class="remove-btn" onclick="removeBatch(${batchCount})">Remove</button>
+      </h4>
+      <label>Manufacturer Batch Number:</label>
+      <input type="text" name="batchNumber[]" required placeholder="Enter batch number">
+      
+      <label>Expiry Date:</label>
+      <input type="date" name="expiryDate[]" required>
+      
+      <label>Amount on Hand:</label>
+      <input type="number" name="amountOnHand[]" min="0" required placeholder="Enter quantity">
+    `;
+    container.appendChild(div);
+  }
+
+  function removeBatch(id) {
+    const element = document.getElementById(`batch-${id}`);
+    if (element) {
+      element.remove();
+    }
+  }
+
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    
+    const submitBtn = document.getElementById('submitBtn');
+    const loadingDiv = document.getElementById('loading');
+    const successDiv = document.getElementById('success-message');
+    const errorDiv = document.getElementById('error-message');
+
+    submitBtn.disabled = true;
+    loadingDiv.style.display = 'block';
+    successDiv.style.display = 'none';
+    errorDiv.style.display = 'none';
+
+    const formElement = document.getElementById('stockForm');
+    const formData = new FormData(formElement);
+    
+    const data = {
+      staffName: formData.get('staffName'),
+      reportDate: formData.get('reportDate'),
+      hcf: formData.get('hcf'),
+      batchNumber: formData.getAll('batchNumber[]'),
+      expiryDate: formData.getAll('expiryDate[]'),
+      amountOnHand: formData.getAll('amountOnHand[]')
+    };
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+    .then(() => {
+      loadingDiv.style.display = 'none';
+      successDiv.style.display = 'block';
+      submitBtn.disabled = false;
+      formElement.reset();
+      document.getElementById('reportDate').valueAsDate = new Date(); // Reset date back to today
+      
+      // Reset dynamic blocks back to initial state
+      document.getElementById('batchContainer').innerHTML = `
+        <div class="batch-group" id="batch-1">
+          <h4>Batch 1</h4>
+          <label>Manufacturer Batch Number:</label>
+          <input type="text" name="batchNumber[]" required placeholder="Enter batch number">
+          <label>Expiry Date:</label>
+          <input type="date" name="expiryDate[]" required>
+          <label>Amount on Hand:</label>
+          <input type="number" name="amountOnHand[]" min="0" required placeholder="Enter quantity">
+        </div>
+      `;
+      batchCount = 1;
+      
+      setTimeout(() => {
+        successDiv.style.display = 'none';
+      }, 5000);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      loadingDiv.style.display = 'none';
+      errorDiv.style.display = 'block';
+      submitBtn.disabled = false;
+    });
+  }
+</script>
+
+</body>
+</html>
