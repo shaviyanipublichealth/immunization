@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>National Immunization Program - Document Portal</title>
+  <title>Immunization Document Repository - Shaviyani Atoll</title>
   
   <!-- Font Awesome Library -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -29,37 +29,64 @@
     }
 
     .container {
-      max-width: 900px;
+      max-width: 950px;
       margin: auto;
     }
 
     /* Header Banner Styling */
     .header-banner {
       background: linear-gradient(135deg, #0056b3, #003366);
-      padding: 25px;
+      padding: 30px;
       border-radius: 8px;
       color: #fff;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       margin-bottom: 25px;
-      position: relative;
-      overflow: hidden;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
     }
 
-    .header-banner h1 {
+    .header-text h1 {
       margin: 0 0 8px 0;
       font-size: 24px;
     }
 
-    .header-banner p {
+    .header-text p {
       margin: 0;
       color: #a8dadc;
       font-size: 15px;
     }
 
+    .header-badge {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    /* Search & Filter Bar */
+    .filter-bar {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 14px;
+      background: #fff;
+    }
+
     /* Portal Grid Layout */
     .portal-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
       gap: 20px;
     }
 
@@ -110,9 +137,9 @@
       color: var(--danger-color);
     }
 
-    .card title, .card h3 {
+    .card h3 {
       margin: 0 0 8px 0;
-      font-size: 18px;
+      font-size: 17px;
       color: #222;
     }
 
@@ -131,7 +158,13 @@
       margin-bottom: 15px;
     }
 
+    .card-actions {
+      display: flex;
+      gap: 8px;
+    }
+
     .card-btn {
+      flex: 1;
       display: block;
       text-align: center;
       background-color: var(--primary-color);
@@ -139,7 +172,7 @@
       text-decoration: none;
       padding: 10px;
       border-radius: 4px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: bold;
       transition: background-color 0.2s;
     }
@@ -148,17 +181,23 @@
       background-color: var(--primary-hover);
     }
 
+    .card-btn.secondary {
+      background-color: #6c757d;
+    }
+    .card-btn.secondary:hover {
+      background-color: #5a6268;
+    }
+
     .card-btn.disabled {
       background-color: #ccc;
       pointer-events: none;
     }
 
-    /* Loading State */
-    #loading-state {
+    footer {
       text-align: center;
-      padding: 40px;
-      color: #666;
-      font-size: 15px;
+      margin-top: 40px;
+      font-size: 13px;
+      color: #777;
     }
   </style>
 </head>
@@ -168,100 +207,145 @@
   
   <!-- Header Banner -->
   <div class="header-banner">
-    <h1><i class="fa-solid fa-shield-halved"></i> Shaviyani Atoll Health Portal</h1>
-    <p>National Immunization Program — Active Reporting & Document Repository</p>
+    <div class="header-text">
+      <h1><i class="fa-solid fa-book-medical"></i> Immunization Document Repository</h1>
+      <p>National Immunization Program (NIP) — Shaviyani Atoll Directives & Forms</p>
+    </div>
+    <div class="header-badge">
+      <i class="fa-solid fa-shield-virus"></i> NIP Portal
+    </div>
   </div>
 
-  <!-- Loading State -->
-  <div id="loading-state">
-    <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
-    <p style="margin-top: 10px;">Loading immunization documents from system...</p>
+  <!-- Search Filter -->
+  <div class="filter-bar">
+    <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search repository documents, forms, or cold chain files..." onkeyup="filterDocuments()">
   </div>
 
-  <!-- Dynamic Cards Grid Container -->
-  <div id="portalGrid" class="portal-grid" style="display: none;"></div>
+  <!-- Repository Cards Grid -->
+  <div id="repoGrid" class="portal-grid">
+    
+    <!-- Item 1: 0.5ml Syringe Stock Status -->
+    <div class="card" data-title="0.5ml Syringe Stock Status Inventory">
+      <div>
+        <div class="card-header">
+          <i class="fa-solid fa-syringe card-icon"></i>
+          <span id="syringeBadge" class="badge badge-active">Active</span>
+        </div>
+        <span style="font-size: 11px; color: var(--primary-color); font-weight: bold; text-transform: uppercase;">Inventory Reporting</span>
+        <h3>0.5ml Syringe Stock Status</h3>
+        <p>Atoll-wide stock tracking and inventory submission for 0.5ml One-shot syringes across 13 health facilities.</p>
+      </div>
+      <div>
+        <div class="card-meta">
+          <i class="fa-regular fa-clock"></i> Deadline: <strong>Sept 20, 2026 - 08:30 AM</strong>
+        </div>
+        <div class="card-actions">
+          <a href="index.html" id="syringeBtn" class="card-btn">Open Form</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item 2: Daily Tally Sheets -->
+    <div class="card" data-title="National Immunization Program Daily Tally Sheets NIP-011F">
+      <div>
+        <div class="card-header">
+          <i class="fa-solid fa-clipboard-user card-icon"></i>
+          <span class="badge badge-active">Active Guide</span>
+        </div>
+        <span style="font-size: 11px; color: var(--primary-color); font-weight: bold; text-transform: uppercase;">Reporting Forms</span>
+        <h3>NIP Daily Tally Sheets (NIP-011F)</h3>
+        <p>Routine immunization registration forms, beneficiary counts, and daily vaccine administration tallies.</p>
+      </div>
+      <div>
+        <div class="card-meta">
+          <i class="fa-solid fa-file-pdf"></i> Format: <strong>Digital / PDF Template</strong>
+        </div>
+        <div class="card-actions">
+          <a href="#" onclick="alert('Document preview or download link will be attached here.'); return false;" class="card-btn secondary">View Document</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item 3: Cold Chain Monitoring -->
+    <div class="card" data-title="Vaccine Cold Chain Monitoring SHAH IPD">
+      <div>
+        <div class="card-header">
+          <i class="fa-solid fa-temperature-low card-icon"></i>
+          <span class="badge badge-active">Active Log</span>
+        </div>
+        <span style="font-size: 11px; color: var(--primary-color); font-weight: bold; text-transform: uppercase;">Cold Chain System</span>
+        <h3>SHAH-IPD Cold Chain Monitoring</h3>
+        <p>Temperature logs, refrigerator functional status, and vaccine potency safety compliance records.</p>
+      </div>
+      <div>
+        <div class="card-meta">
+          <i class="fa-regular fa-calendar-days"></i> Cycle: <strong>Monthly Submission</strong>
+        </div>
+        <div class="card-actions">
+          <a href="#" onclick="alert('Cold chain monitoring module portal link.'); return false;" class="card-btn">Access Module</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Item 4: Vaccine Schedule & Guidelines -->
+    <div class="card" data-title="National Childhood Immunization Schedule Guidelines Maldives">
+      <div>
+        <div class="card-header">
+          <i class="fa-solid fa-file-shield card-icon"></i>
+          <span class="badge badge-active">Reference</span>
+        </div>
+        <span style="font-size: 11px; color: var(--primary-color); font-weight: bold; text-transform: uppercase;">Standard Guidelines</span>
+        <h3>Childhood Immunization Schedule</h3>
+        <p>Official Maldives National Immunization Program schedule, intervals, booster doses, and catch-up protocols.</p>
+      </div>
+      <div>
+        <div class="card-meta">
+          <i class="fa-solid fa-book-open"></i> Version: <strong>2026 NIP Standard</strong>
+        </div>
+        <div class="card-actions">
+          <a href="#" onclick="alert('Schedule reference document view.'); return false;" class="card-btn secondary">Read Guidelines</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Shaviyani Atoll Public Health Directorate &copy; 2026 | National Immunization Program Repository</p>
+  </footer>
 
 </div>
 
 <script>
-  // Replace with your Google Apps Script Web App URL
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyyXnta7UkY4qum6QaUo2OnPpOwaKprLuTrIY9chbvGH9XF-qU8SvKMCwqaGZC5M-LMWg/exec";
-
-  // Example structure if fetching dynamically or fallback array configuration
+  // Real-time deadline check for active forms like the Syringe Stock Status
   window.addEventListener('DOMContentLoaded', () => {
-    fetchDocuments();
+    const closingTime = new Date("2026-09-20T08:30:00");
+    const currentTime = new Date();
+
+    if (currentTime > closingTime) {
+      const badge = document.getElementById('syringeBadge');
+      badge.className = 'badge badge-closed';
+      badge.textContent = 'Closed';
+
+      const btn = document.getElementById('syringeBtn');
+      btn.className = 'card-btn disabled';
+      btn.textContent = 'Deadline Passed';
+    }
   });
 
-  function fetchDocuments() {
-    // If your Apps Script doGet returns a JSON list of documents, fetch it here.
-    // Otherwise, rendering standard structured items managed via your backend:
-    
-    setTimeout(() => {
-      document.getElementById('loading-state').style.display = 'none';
-      const grid = document.getElementById('portalGrid');
-      grid.style.display = 'grid';
+  // Search filter functionality across repository cards
+  function filterDocuments() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const cards = document.querySelectorAll('.portal-grid .card');
 
-      // Sample dynamic card items representing NIP records / documents
-      const documents = [
-        {
-          title: "0.5ml Syringe Stock Status",
-          description: "Atoll-wide stock tracking and inventory report for 0.5ml immunization syringes across 13 health facilities.",
-          deadline: "2026-09-20 08:30 AM",
-          closingDate: new Date("2026-09-20T08:30:00"),
-          link: "index.html", // Link to your form page
-          icon: "fa-syringe",
-          category: "Inventory & Stock"
-        },
-        {
-          title: "Vaccine Cold Chain Monitoring",
-          description: "SHAH-IPD cold chain temperature logs and equipment functional status reports.",
-          deadline: "Ongoing Monthly",
-          closingDate: null,
-          link: "#",
-          icon: "fa-temperature-low",
-          category: "Cold Chain"
-        },
-        {
-          title: "National Immunization Daily Tally Sheets",
-          description: "Routine immunization registry and daily administration tallies (NIP-011F).",
-          deadline: "Active Submission",
-          closingDate: null,
-          link: "#",
-          icon: "fa-clipboard-user",
-          category: "Reporting"
-        }
-      ];
-
-      const now = new Date();
-
-      grid.innerHTML = documents.map(doc => {
-        const isClosed = doc.closingDate && now > doc.closingDate;
-        const badgeClass = isClosed ? 'badge-closed' : 'badge-active';
-        const badgeText = isClosed ? 'Closed' : 'Active';
-        const btnClass = isClosed ? 'card-btn disabled' : 'card-btn';
-        const btnText = isClosed ? 'Submission Closed' : 'Access Form / Report';
-
-        return `
-          <div class="card">
-            <div>
-              <div class="card-header">
-                <i class="fa-solid ${doc.icon} card-icon"></i>
-                <span class="badge ${badgeClass}">${badgeText}</span>
-              </div>
-              <span style="font-size: 11px; color: #0056b3; font-weight: bold; text-transform: uppercase;">${doc.category}</span>
-              <h3>${doc.title}</h3>
-              <p>${doc.description}</p>
-            </div>
-            <div>
-              <div class="card-meta">
-                <i class="fa-regular fa-clock"></i> Deadline: <strong>${doc.deadline}</strong>
-              </div>
-              <a href="${doc.link}" class="${btnClass}">${btnText}</a>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }, 600);
+    cards.forEach(card => {
+      const titleText = card.getAttribute('data-title').toLowerCase();
+      if (titleText.includes(input)) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
   }
 </script>
 
