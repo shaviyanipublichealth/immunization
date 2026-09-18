@@ -26,178 +26,172 @@
       margin: 0;
       padding: 20px;
       color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      min-height: 90vh;
+      justify-content: space-between;
     }
 
     .container {
-      max-width: 950px;
+      max-width: 800px;
       margin: auto;
+      text-align: center;
+      width: 100%;
     }
 
     /* Header Banner Styling */
     .header-banner {
       background: linear-gradient(135deg, #0056b3, #003366);
-      padding: 30px;
+      padding: 25px;
       border-radius: 8px;
       color: #fff;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      margin-bottom: 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 15px;
+      margin-bottom: 40px;
     }
 
-    .header-text h1 {
+    .header-banner h1 {
       margin: 0 0 8px 0;
+      font-size: 22px;
+    }
+
+    .header-banner p {
+      margin: 0;
+      color: #a8dadc;
+      font-size: 14px;
+    }
+
+    /* Under Construction Animation Section */
+    .construction-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 45px 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      margin-bottom: 30px;
+    }
+
+    .icon-container {
+      position: relative;
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 25px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #eef5ff;
+      border-radius: 50%;
+      color: var(--primary-color);
+      font-size: 38px;
+    }
+
+    /* Pulsing radar ring animation */
+    .icon-container::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 3px solid var(--primary-color);
+      animation: pulseRing 2s infinite ease-out;
+      opacity: 0;
+    }
+
+    @keyframes pulseRing {
+      0% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(1.6);
+        opacity: 0;
+      }
+    }
+
+    .construction-card h2 {
+      margin: 0 0 12px 0;
+      color: #222;
       font-size: 24px;
     }
 
-    .header-text p {
-      margin: 0;
-      color: #a8dadc;
-      font-size: 15px;
-    }
-
-    .header-badge {
-      background: rgba(255, 255, 255, 0.15);
-      padding: 8px 15px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: bold;
-    }
-
-    /* Search & Filter Bar */
-    .filter-bar {
-      margin-bottom: 20px;
-      display: flex;
-      gap: 10px;
-    }
-
-    .search-input {
-      width: 100%;
-      padding: 12px 15px;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      font-size: 14px;
-      background: #fff;
-    }
-
-    /* Portal Grid Layout */
-    .portal-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 12px;
-    }
-
-    .card-icon {
-      font-size: 28px;
-      color: var(--primary-color);
-    }
-
-    .badge {
-      font-size: 11px;
-      font-weight: bold;
-      padding: 4px 8px;
-      border-radius: 12px;
-      text-transform: uppercase;
-    }
-
-    .badge-active {
-      background-color: #eaf8ec;
-      color: var(--success-color);
-    }
-
-    .badge-closed {
-      background-color: #fdf2f2;
-      color: var(--danger-color);
-    }
-
-    .card h3 {
-      margin: 0 0 8px 0;
-      font-size: 17px;
-      color: #222;
-    }
-
-    .card p {
-      font-size: 13px;
+    .construction-card p {
       color: #666;
-      margin: 0 0 15px 0;
-      line-height: 1.4;
+      font-size: 15px;
+      line-height: 1.6;
+      max-width: 520px;
+      margin: 0 auto 25px auto;
     }
 
-    .card-meta {
+    .progress-bar-container {
+      background: #e9ecef;
+      border-radius: 8px;
+      height: 10px;
+      max-width: 400px;
+      margin: 0 auto 15px auto;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      background: linear-gradient(90deg, #0056b3, #28a745);
+      height: 100%;
+      width: 75%;
+      border-radius: 8px;
+      animation: progressAnimation 2s infinite alternate;
+    }
+
+    @keyframes progressAnimation {
+      0% { width: 70%; }
+      100% { width: 85%; }
+    }
+
+    .progress-text {
       font-size: 12px;
       color: #888;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Quick Links Box */
+    .quick-links {
+      margin-top: 25px;
+      padding-top: 20px;
       border-top: 1px solid #eee;
-      padding-top: 10px;
-      margin-bottom: 15px;
-    }
-
-    .card-actions {
       display: flex;
-      gap: 8px;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
     }
 
-    .card-btn {
-      flex: 1;
-      display: block;
-      text-align: center;
+    .btn-link {
       background-color: var(--primary-color);
       color: white;
       text-decoration: none;
-      padding: 10px;
-      border-radius: 4px;
+      padding: 10px 18px;
+      border-radius: 6px;
       font-size: 13px;
       font-weight: bold;
       transition: background-color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .card-btn:hover {
+    .btn-link:hover {
       background-color: var(--primary-hover);
     }
 
-    .card-btn.secondary {
+    .btn-link.secondary {
       background-color: #6c757d;
     }
-    .card-btn.secondary:hover {
+    .btn-link.secondary:hover {
       background-color: #5a6268;
-    }
-
-    .card-btn.disabled {
-      background-color: #ccc;
-      pointer-events: none;
     }
 
     footer {
       text-align: center;
-      margin-top: 40px;
-      font-size: 13px;
+      font-size: 12px;
       color: #777;
+      margin-top: 20px;
     }
   </style>
 </head>
@@ -207,147 +201,36 @@
   
   <!-- Header Banner -->
   <div class="header-banner">
-    <div class="header-text">
-      <h1><i class="fa-solid fa-book-medical"></i> Immunization Document Repository</h1>
-      <p>National Immunization Program (NIP) — Shaviyani Atoll Directives & Forms</p>
-    </div>
-    <div class="header-badge">
-      <i class="fa-solid fa-shield-virus"></i> NIP Portal
-    </div>
+    <h1><i class="fa-solid fa-book-medical"></i> Immunization Document Repository</h1>
+    <p>National Immunization Program (NIP) — Shaviyani Atoll Directorate</p>
   </div>
 
-  <!-- Search Filter -->
-  <div class="filter-bar">
-    <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search repository documents, forms, or cold chain files..." onkeyup="filterDocuments()">
-  </div>
-
-  <!-- Repository Cards Grid -->
-  <div id="repoGrid" class="portal-grid">
+  <!-- Under Construction Card with Animation -->
+  <div class="construction-card">
+    <div class="icon-container">
+      <i class="fa-solid fa-gears fa-spin" style="animation-duration: 6s;"></i>
+    </div>
     
-    <!-- Item 1: 0.5ml Syringe Stock Status -->
-    <div class="card" data-title="0.5ml Syringe Stock Status Inventory">
-      <div>
-        <div class="card-header">
-          <i class="fa-solid fa-syringe card-icon"></i>
-          <span id="syringeBadge" class="badge badge-active">Active</span>
-        </div>
-        <span style="font-size: 11px; color: var(--primary-color); font-weight: bold; text-transform: uppercase;">Inventory Reporting</span>
-        <h3>0.5ml Syringe Stock Status</h3>
-        <p>Atoll-wide stock tracking and inventory submission for 0.5ml One-shot syringes across 13 health facilities.</p>
-      </div>
-      <div>
-        <div class="card-meta">
-          <i class="fa-regular fa-clock"></i> Deadline: <strong>Sept 20, 2026 - 08:30 AM</strong>
-        </div>
-        <div class="card-actions">
-          <a href="index.html" id="syringeBtn" class="card-btn">Open Form</a>
-        </div>
-      </div>
-    </div>
+    <h2>Repository Under Construction</h2>
+    <p>We are currently upgrading and centralizing all National Immunization Program guidelines, tally sheets, and cold chain logs into this digital repository. Stay tuned for the official launch.</p>
 
-    <!-- Item 2: Daily Tally Sheets -->
-    <div class="card" data-title="National Immunization Program Daily Tally Sheets NIP-011F">
-      <div>
-        <div class="card-header">
-          <i class="fa-solid fa-clipboard-user card-icon"></i>
-          <span class="badge badge-active">Active Guide</span>
-        </div>
-        <span style="font-size: 11px; color: var(--primary-color); font-weight: bold; text-transform: uppercase;">Reporting Forms</span>
-        <h3>NIP Daily Tally Sheets (NIP-011F)</h3>
-        <p>Routine immunization registration forms, beneficiary counts, and daily vaccine administration tallies.</p>
-      </div>
-      <div>
-        <div class="card-meta">
-          <i class="fa-solid fa-file-pdf"></i> Format: <strong>Digital / PDF Template</strong>
-        </div>
-        <div class="card-actions">
-          <a href="#" onclick="alert('Document preview or download link will be attached here.'); return false;" class="card-btn secondary">View Document</a>
-        </div>
-      </div>
+    <div class="progress-bar-container">
+      <div class="progress-bar"></div>
     </div>
+    <div class="progress-text">System Integration & Setup in Progress</div>
 
-    <!-- Item 3: Cold Chain Monitoring -->
-    <div class="card" data-title="Vaccine Cold Chain Monitoring SHAH IPD">
-      <div>
-        <div class="card-header">
-          <i class="fa-solid fa-temperature-low card-icon"></i>
-          <span class="badge badge-active">Active Log</span>
-        </div>
-        <span style="font-size: 11px; color: var(--primary-color); font-weight: bold; text-transform: uppercase;">Cold Chain System</span>
-        <h3>SHAH-IPD Cold Chain Monitoring</h3>
-        <p>Temperature logs, refrigerator functional status, and vaccine potency safety compliance records.</p>
-      </div>
-      <div>
-        <div class="card-meta">
-          <i class="fa-regular fa-calendar-days"></i> Cycle: <strong>Monthly Submission</strong>
-        </div>
-        <div class="card-actions">
-          <a href="#" onclick="alert('Cold chain monitoring module portal link.'); return false;" class="card-btn">Access Module</a>
-        </div>
-      </div>
+    <!-- Quick Access to Active Forms -->
+    <div class="quick-links">
+      <a href="index.html" class="btn-link"><i class="fa-solid fa-syringe"></i> Open 0.5ml Syringe Stock Form</a>
+      <a href="https://shaviyanipublichealth.blogspot.com/" class="btn-link secondary"><i class="fa-solid fa-house"></i> Public Health Portal</a>
     </div>
-
-    <!-- Item 4: Vaccine Schedule & Guidelines -->
-    <div class="card" data-title="National Childhood Immunization Schedule Guidelines Maldives">
-      <div>
-        <div class="card-header">
-          <i class="fa-solid fa-file-shield card-icon"></i>
-          <span class="badge badge-active">Reference</span>
-        </div>
-        <span style="font-size: 11px; color: var(--primary-color); font-weight: bold; text-transform: uppercase;">Standard Guidelines</span>
-        <h3>Childhood Immunization Schedule</h3>
-        <p>Official Maldives National Immunization Program schedule, intervals, booster doses, and catch-up protocols.</p>
-      </div>
-      <div>
-        <div class="card-meta">
-          <i class="fa-solid fa-book-open"></i> Version: <strong>2026 NIP Standard</strong>
-        </div>
-        <div class="card-actions">
-          <a href="#" onclick="alert('Schedule reference document view.'); return false;" class="card-btn secondary">Read Guidelines</a>
-        </div>
-      </div>
-    </div>
-
   </div>
 
   <footer>
-    <p>Shaviyani Atoll Public Health Directorate &copy; 2026 | National Immunization Program Repository</p>
+    <p>Shaviyani Atoll Public Health Directorate &copy; 2026 | National Immunization Program</p>
   </footer>
 
 </div>
-
-<script>
-  // Real-time deadline check for active forms like the Syringe Stock Status
-  window.addEventListener('DOMContentLoaded', () => {
-    const closingTime = new Date("2026-09-20T08:30:00");
-    const currentTime = new Date();
-
-    if (currentTime > closingTime) {
-      const badge = document.getElementById('syringeBadge');
-      badge.className = 'badge badge-closed';
-      badge.textContent = 'Closed';
-
-      const btn = document.getElementById('syringeBtn');
-      btn.className = 'card-btn disabled';
-      btn.textContent = 'Deadline Passed';
-    }
-  });
-
-  // Search filter functionality across repository cards
-  function filterDocuments() {
-    const input = document.getElementById('searchInput').value.toLowerCase();
-    const cards = document.querySelectorAll('.portal-grid .card');
-
-    cards.forEach(card => {
-      const titleText = card.getAttribute('data-title').toLowerCase();
-      if (titleText.includes(input)) {
-        card.style.display = 'flex';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  }
-</script>
 
 </body>
 </html>
