@@ -366,7 +366,8 @@
   let lastSubmission = { hcf: '', reportDate: '' };
 
   window.addEventListener('DOMContentLoaded', () => {
-    const closingTime = new Date("2026-09-20T10:30:00");
+    // Updated deadline to 11:00 AM
+    const closingTime = new Date("2026-09-20T11:00:00");
     const currentTime = new Date();
 
     if (currentTime > closingTime) {
@@ -433,7 +434,8 @@
   function handleFormSubmit(event) {
     event.preventDefault();
     
-    const closingTime = new Date("2026-09-20T08:30:00");
+    // Updated deadline to 11:00 AM
+    const closingTime = new Date("2026-09-20T11:00:00");
     const currentTime = new Date();
 
     if (currentTime > closingTime) {
